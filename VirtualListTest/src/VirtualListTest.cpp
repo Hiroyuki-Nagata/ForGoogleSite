@@ -20,8 +20,11 @@ wxFrame(parent, id, title, pos, size, wxDEFAULT_FRAME_STYLE) {
 
 	// 仮想リストのインスタンスを作成しペインに配置する
 	virtualList = new VirtualList(ctrl1);
+	// リストのカラムの幅を最大化する
+	for (unsigned int i = 0; i < virtualList->GetColumnCount(); i++) {
+		virtualList->SetColumnWidth(i, wxLIST_AUTOSIZE);
+	}
 	ctrl1->AddPage(virtualList, wxT("仮想リスト"), false);
-
 	ctrl1->Thaw();
 
 	// wxAuiManagerに全ての変更を「コミットする」

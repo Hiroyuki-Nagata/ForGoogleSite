@@ -7,35 +7,52 @@
 
 #include "VirtualList.h"
 
-VirtualList::VirtualList(wxWindow* parent):
-wxListCtrl(parent,wxID_ANY, wxDefaultPosition, wxDefaultSize, wxLC_REPORT|wxLC_VIRTUAL){
+VirtualList::VirtualList(wxWindow* parent) :
+		wxListCtrl(parent, wxID_ANY, wxDefaultPosition, wxDefaultSize,
+				wxLC_REPORT | wxLC_VIRTUAL) {
 
-	// Add first column
-	wxListItem col0;
-	col0.SetId(0);
-	col0.SetText( wxT("番号") );
-	col0.SetWidth(300);
-	InsertColumn(0, col0);
+	CharacterInfo ci;
 
-	// Add second column
-	wxListItem col1;
-	col1.SetId(1);
-	col1.SetText( wxT("名前") );
-	col1.SetWidth(50);
-	InsertColumn(1, col1);
+	ci.number = wxT("１");
+	ci.name = wxT("ハクオロ");
+	ci.comment = wxT("箱根のみなさ～ん");
+	m_chars.push_back(ci);
+	ci.number = wxT("２");
+	ci.name = wxT("エルルゥ");
+	ci.comment = wxT("好きって言ってにゃん");
+	m_chars.push_back(ci);
+	ci.number = wxT("３");
+	ci.name = wxT("アルルゥ");
+	ci.comment = wxT("くり");
+	m_chars.push_back(ci);
+	ci.number = wxT("４");
+	ci.name = wxT("クロウ");
+	ci.comment = wxT("浪川、頑張ってるよ、俺");
+	m_chars.push_back(ci);
+	ci.number = wxT("５");
+	ci.name = wxT("トウカ");
+	ci.comment = wxT("二次元が初恋じゃダメですか！？");
+	m_chars.push_back(ci);
 
-	// Add third column
-	wxListItem col2;
-	col2.SetId(2);
-	col2.SetText( wxT("座右の銘") );
-	col2.SetWidth(100);
-	InsertColumn(2, col2);
-
-	SetItemCount(0);
+	SetItemCount(m_chars.size());
+	InsertColumn(COL_NUM, wxT("番号"));
+	InsertColumn(COL_NAME, wxT("名前"));
+	InsertColumn(COL_COMMENT, wxT("コメント"));
 }
 
 wxString VirtualList::OnGetItemText(long item, long column) const {
+	wxCHECK_MSG(item >= 0 && item < m_chars.size(), "", "Invalid item index");
+
+	switch (column) {
+	case COL_NUM:
+		return m_chars[item].number;
+	case COL_NAME:
+		return m_chars[item].name;
+	case COL_COMMENT:
+		return m_chars[item].comment;
+	default:
+		wxFAIL_MSG("Invalid column index in MyListCtrl::OnGetItemText");
+	}
+	return "";
 }
-
-
 
