@@ -18,10 +18,17 @@ public:
 	VirtualListTest(wxWindow* parent, int id, const wxString& title,
 			const wxPoint& pos = wxDefaultPosition, const wxSize& size =
 					wxDefaultSize, long style = wxDEFAULT_FRAME_STYLE);
+
 	~VirtualListTest();
+
+	// 左クリックイベント
+	void OnLeftClickAtListCtrl(wxListEvent& event);
+
 private:
 	wxAuiManager m_mgr;
 	VirtualList* virtualList;
+
+	DECLARE_EVENT_TABLE()
 };
 
 #endif /* VIRTUALLISTTEST_H_ */

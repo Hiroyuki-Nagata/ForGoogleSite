@@ -7,6 +7,10 @@
 
 #include "VirtualList.h"
 
+/**
+ * コンストラクタ：
+ * 構造体のリストをカラムとしてListCtrlに仕込む
+ */
 VirtualList::VirtualList(wxWindow* parent) :
 		wxListCtrl(parent, wxID_ANY, wxDefaultPosition, wxDefaultSize,
 				wxLC_REPORT | wxLC_VIRTUAL) {
@@ -39,9 +43,11 @@ VirtualList::VirtualList(wxWindow* parent) :
 	InsertColumn(COL_NAME, wxT("名前"));
 	InsertColumn(COL_COMMENT, wxT("コメント"));
 }
-
+/**
+ * wxListCtrl備え付きの仮想関数 ： wxListCtrlを継承したクラスで仮想関数を実装することで使えるようになる
+ * 指定されたアイテムとカラムに存在するテキストを返すことができる
+ */
 wxString VirtualList::OnGetItemText(long item, long column) const {
-	wxCHECK_MSG(item >= 0 && item < m_chars.size(), "", "Invalid item index");
 
 	switch (column) {
 	case COL_NUM:
