@@ -1,15 +1,29 @@
-CXXFLAGS =	-O2 -g -Wall -fmessage-length=0
+#============================================================================
+# Author      : http://nantonaku-shiawase.hatenablog.com/
+# Version     : 1.0.0
+# Copyright   : Common Public License
+# Description : Hello World in wxWidgets with Japanese
+#============================================================================
 
-OBJS =		HelloWorld.o
+# target and sources
+CXX		= g++ -O2 -Wall
+TARGET	= HelloWorld
+OBJECTS = Main.o HelloWorld.o
 
-LIBS =
+# basic command
+RM		= rm
 
-TARGET =	HelloWorld.exe
+# make all
+all : $(TARGET)
 
-$(TARGET):	$(OBJS)
-	$(CXX) -o $(TARGET) $(OBJS) $(LIBS)
+$(TARGET) : $(OBJECTS) 
+		$(CXX) $(OBJECTS) -o $(TARGET) `wx-config --libs`
 
-all:	$(TARGET)
+HelloWorld.o : HelloWorld.h
+		$(CXX) -c HelloWorld.cpp `wx-config --cxxflags`
+
+Main.o : HelloWorld.h
+		$(CXX) -c Main.cpp `wx-config --cxxflags`
 
 clean:
-	rm -f $(OBJS) $(TARGET)
+	$(RM) -f *.o $(TARGET).exe

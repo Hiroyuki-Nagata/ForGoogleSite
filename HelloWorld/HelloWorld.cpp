@@ -1,15 +1,61 @@
 //============================================================================
 // Name        : HelloWorld.cpp
-// Author      : Hiroyuki Nagata
-// Version     :
-// Copyright   : Your copyright notice
-// Description : Hello World in C, Ansi-style
+// Author      : http://nantonaku-shiawase.hatenablog.com/
+// Version     : 1.0.0
+// Copyright   : Common Public License
+// Description : Hello World in wxWidgets with Japanese
 //============================================================================
 
-#include <stdio.h>
-#include <stdlib.h>
+#include "HelloWorld.h"
 
-int main(void) {
-	puts("Hello World!!!");
-	return EXIT_SUCCESS;
+enum {
+	Minimal_Quit = wxID_EXIT, Minimal_About = wxID_ABOUT
+};
+
+BEGIN_EVENT_TABLE(HelloWorld, wxFrame)
+EVT_MENU(Minimal_Quit, HelloWorld::OnQuit)
+EVT_MENU(Minimal_About, HelloWorld::OnAbout)
+END_EVENT_TABLE()
+
+/**
+ * wxFrameクラスのコンストラクタ
+ */
+HelloWorld::HelloWorld(const wxString& title) :
+wxFrame(NULL, wxID_ANY, title, wxDefaultPosition, wxSize(640, 480)) {
+
+	// メニューバーの設置
+	wxMenu *fileMenu = new wxMenu;
+
+	wxMenu *helpMenu = new wxMenu;
+	helpMenu->Append(Minimal_About, wxT("&ヘルプ...\tF1"), wxT("このプログラムについて"));
+	fileMenu->Append(Minimal_Quit, wxT("&終了\tAlt-X"), wxT("このプログラムを終了します"));
+
+	wxMenuBar *menuBar = new wxMenuBar();
+	menuBar->Append(fileMenu, "&File");
+	menuBar->Append(helpMenu, "&Help");
+
+	SetMenuBar(menuBar);
+
+	// ステータスバーを設置する
+	CreateStatusBar(2);
+	SetStatusText(wxT("wxWidgetsにようこそ!"));
+
+	Centre();
 }
+/**
+ * 閉じるを押した際のイベント
+ */
+void HelloWorld::OnQuit(wxCommandEvent& event) {
+	Close(true);
+}
+/**
+ * ヘルプを押した際のイベント
+ */
+void HelloWorld::OnAbout(wxCommandEvent& event) {
+
+wxMessageBox(wxString::Format(wxT("%sにようこそ!\n\n")
+				wxT("これはwxWidgetsの最小アプリです\n")
+				wxT("%s環境で動作しています"), wxVERSION_STRING, wxGetOsDescription()),
+		wxT("このアプリケーションについて"), wxOK | wxICON_INFORMATION, this);
+}
+
