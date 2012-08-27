@@ -13,7 +13,7 @@
 #include <wx/regex.h>
 
 // URL検出用正規表現（かなりいい加減かも）
-static const wxString regexText = _T("(http|https|ttp|ftp)://([[:alnum:]]|[[:punct:]])*");
+static const wxString regexText = _T("(http|https|ttp|ftp)://([[:alnum:]]|[[:punct:]]|[=]|[~])*");
 
 class RegexTest : public wxFrame {
 public:
