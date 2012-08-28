@@ -11,6 +11,8 @@
 #define HTMLWINDOWTEST_H_
 
 #include <wx/wx.h>
+#include <wx/combobox.h>
+#include "HtmlContentWindow.h"
 
 class HtmlWindowTest: public wxFrame {
 public:
@@ -18,8 +20,12 @@ public:
 
 	void OnQuit(wxCommandEvent& event);
 	void OnAbout(wxCommandEvent& event);
+	void OnChangeHtmlSource(wxCommandEvent& event);
 
 private:
+	wxComboBox* combo;
+	HtmlContentWindow* htmlWin;
+
 	DECLARE_EVENT_TABLE()
 };
 

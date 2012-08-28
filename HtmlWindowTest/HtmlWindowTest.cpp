@@ -10,12 +10,13 @@
 #include "HtmlWindowTest.h"
 
 enum {
-	Minimal_Quit = wxID_EXIT, Minimal_About = wxID_ABOUT
+	Minimal_Quit = wxID_EXIT, Minimal_About = wxID_ABOUT, wxID_ComboBox
 };
 
 BEGIN_EVENT_TABLE(HtmlWindowTest, wxFrame)
 EVT_MENU(Minimal_Quit, HtmlWindowTest::OnQuit)
 EVT_MENU(Minimal_About, HtmlWindowTest::OnAbout)
+EVT_TEXT(wxID_ComboBox, HtmlWindowTest::OnChangeHtmlSource)
 END_EVENT_TABLE()
 
 /**
@@ -36,6 +37,26 @@ wxFrame(NULL, wxID_ANY, title, wxDefaultPosition, wxSize(640, 480)) {
 	menuBar->Append(helpMenu, wxT("&ヘルプ"));
 
 	SetMenuBar(menuBar);
+
+	// ウィンドウにウィジェットを敷き詰める
+	wxPanel *panel = new wxPanel(this, -1);
+	wxBoxSizer *vbox = new wxBoxSizer(wxVERTICAL);
+
+	// 説明とコンボボックス
+	wxBoxSizer *hbox = new wxBoxSizer(wxHORIZONTAL);
+	wxStaticText *st = new wxStaticText(panel, wxID_ANY, wxT("右のトグルボタンでHTMLファイル切り替え　　"));
+	hbox->Add(st, 0);
+	const wxString choices[] = {wxT("sample01.html"), wxT("sample02.html"), wxT("sample03.html")};
+	combo = new wxComboBox(panel, wxID_ComboBox, wxEmptyString, wxDefaultPosition, wxDefaultSize, 3, choices, wxCB_DROPDOWN, wxDefaultValidator, wxT("combobox"));
+	hbox->Add(combo, 0);
+	vbox->Add(hbox, 0, wxEXPAND | wxLEFT | wxRIGHT | wxTOP, 10);
+	vbox->Add(-1, 10);
+
+	// HtmlWindow
+	htmlWin = new HtmlContentWindow(panel, wxT("sample01.html"));
+	vbox->Add(htmlWin, 1, wxEXPAND | wxLEFT | wxRIGHT, 10);
+
+	panel->SetSizer(vbox);
 
 	// ステータスバーを設置する
 	CreateStatusBar(2);
@@ -59,3 +80,13 @@ wxMessageBox(wxString::Format(wxT("%sにようこそ!\n\n")
 				wxT("%s環境で動作しています"), wxVERSION_STRING, wxGetOsDescription()),
 		wxT("このアプリケーションについて"), wxOK | wxICON_INFORMATION, this);
 }
+/**
+ * コンボボックス変更時イベント処理
+ */
+void HtmlWindowTest::OnChangeHtmlSource(wxCommandEvent& event) {
+
+	if (combo->GetValue() != wxEmptyString) {
+		htmlWin->ReloadHtmlPage(combo->GetValue());
+	}
+}
+
