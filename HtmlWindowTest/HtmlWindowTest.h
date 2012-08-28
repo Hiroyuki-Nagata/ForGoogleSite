@@ -21,6 +21,9 @@ public:
 	void OnQuit(wxCommandEvent& event);
 	void OnAbout(wxCommandEvent& event);
 	void OnChangeHtmlSource(wxCommandEvent& event);
+	void CellHover(wxHtmlCellEvent& event);
+	void OnCellClicked(wxHtmlCellEvent& event);
+	void OnLinkClicked(wxHtmlLinkEvent& event);
 
 private:
 	wxComboBox* combo;

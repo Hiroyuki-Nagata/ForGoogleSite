@@ -17,6 +17,9 @@ BEGIN_EVENT_TABLE(HtmlWindowTest, wxFrame)
 EVT_MENU(Minimal_Quit, HtmlWindowTest::OnQuit)
 EVT_MENU(Minimal_About, HtmlWindowTest::OnAbout)
 EVT_TEXT(wxID_ComboBox, HtmlWindowTest::OnChangeHtmlSource)
+EVT_HTML_CELL_HOVER(wxID_ANY, HtmlWindowTest::CellHover)
+EVT_HTML_CELL_CLICKED(wxID_ANY, HtmlWindowTest::OnCellClicked)
+EVT_HTML_LINK_CLICKED(wxID_ANY, HtmlWindowTest::OnLinkClicked)
 END_EVENT_TABLE()
 
 /**
@@ -87,6 +90,35 @@ void HtmlWindowTest::OnChangeHtmlSource(wxCommandEvent& event) {
 
 	if (combo->GetValue() != wxEmptyString) {
 		htmlWin->ReloadHtmlPage(combo->GetValue());
+	}
+}
+/**
+ * セル上をマウスカーソルがホバーしている時のイベント処理
+ */
+void HtmlWindowTest::CellHover(wxHtmlCellEvent& event) {
+	wxHtmlCell* cell = event.GetCell();
+	wxHtmlLinkInfo* linkInfo = cell->GetLink(cell->GetPosX(), cell->GetPosY());
+
+	if (linkInfo) {
+		if (linkInfo->GetHref() != wxEmptyString) {
+			wxMessageBox(wxT("href:") + linkInfo->GetHref());
+		}
+	}
+}
+/**
+ * 特定のセルがクリックされた時のイベント処理
+ */
+void HtmlWindowTest::OnCellClicked(wxHtmlCellEvent& event) {
+	wxHtmlCell* cell = event.GetCell();
+}
+/**
+ * リンクがクリックされた時のイベント処理
+ */
+void HtmlWindowTest::OnLinkClicked(wxHtmlLinkEvent& event) {
+
+	const wxHtmlLinkInfo linkInfo = event.GetLinkInfo();
+	if (linkInfo.GetHref() != wxEmptyString) {
+		wxMessageBox(wxT("href:") + linkInfo.GetHref());
 	}
 }
 
