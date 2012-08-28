@@ -1,0 +1,90 @@
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<TITLE>送信フォームサンプル</TITLE>
+</HEAD>
+<BODY BGCOLOR="#FFEEFF">
+<BLOCKQUOTE>
+<BR>
+<H2>送信フォーム(test form)</H2>
+<!-- 以下がフォームの本文-->
+
+<FORM ACTION="/cgi-bin/form-mail.cgi" METHOD=POST>
+<!-- "/cgi-bin/form-mail.cgi"がサーバ内のCGIスクリプトがあるパスです -->
+
+
+名前を入力してください(必須) :<BR>
+<INPUT TYPE=text NAME="お名前" SIZE=12 MAXLENGTH=14><BR><BR>
+
+住所を入力してください(必須) :<BR>
+<INPUT TYPE=text NAME="ご住所" SIZE=55 MAXLENGTH=100><BR><BR>
+
+電話番号を入力してください :<BR>
+<INPUT TYPE=text NAME="電話番号"><BR><BR>
+
+メールアドレスを入力してください(必須) :<BR>
+<INPUT TYPE=text NAME="mail">
+
+<BR>
+<BR>
+
+<H3>アンケート</H3>
+
+Q1：あなたの好きな食べ物は？(複数選択可) :<BR>
+<INPUT TYPE=checkbox NAME="好きな食べ物" VALUE=おすし>おすし<BR>
+<INPUT TYPE=checkbox NAME="好きな食べ物" VALUE=中華>中華料理<BR>
+<INPUT TYPE=checkbox NAME="好きな食べ物" VALUE=焼肉>焼肉<BR>
+<INPUT TYPE=checkbox NAME="好きな食べ物" VALUE=フランス料理>フランス料理<BR>
+<BR>
+<BR>
+
+
+Q2：あなたの職業は？ :<BR>
+<INPUT TYPE=radio NAME="職業" VALUE=会社員 checked>会社員<BR>
+<INPUT TYPE=radio NAME="職業" VALUE=学生>学生<BR>
+<INPUT TYPE=radio NAME="職業" VALUE=自営業>自営業<BR>
+<INPUT TYPE=radio NAME="職業" VALUE=その他>その他<BR><BR>
+
+
+Q3：一日の内で何時間、電話しますか？ :<BR>
+<SELECT NAME="何時間、電話しますか？">
+<OPTION VALUE="1時間以内" selected>１時間以内 
+<OPTION VALUE="１～3時間">１～３時間 
+<OPTION VALUE="3時間以上">３時間以上 
+</SELECT>
+
+<BR>
+<BR>
+
+
+感想を入力してください :<BR>
+<TEXTAREA NAME=感想 COLS=55 ROWS=5></TEXTAREA><P>
+
+<!---------------------------------------------->
+
+<INPUT TYPE=hidden NAME="REQUIRED" VALUE="E-MAIL,お名前,ご住所,mail">
+<!-- 入力を必須にしたい項目のNAMEをVALUEに入力します
+入力された項目は、必ず入力しないと送信できないようになります -->
+
+
+<INPUT TYPE=hidden NAME="RET_HTML" VALUE="http://www.rim.or.jp">
+<!-- メールの送信が完了した後に自動的に戻るページのURLです -->
+
+
+<INPUT TYPE=hidden NAME="E-MAIL" VALUE="rimtaro@kt.rim.or.jp">
+<!-- フォームを送信するアドレスです -->
+
+
+<INPUT TYPE=hidden NAME="SUBJECT" VALUE="フォーム送信テスト">
+<!-- 送信されるメールのSubjectを指定します -->
+
+
+<INPUT TYPE=submit VALUE=送　信>
+<INPUT TYPE=reset VALUE=取　消><BR>
+
+<HR noshade>
+
+</FORM>
+
+</BLOCKQUOTE></BODY>
+</HTML>
