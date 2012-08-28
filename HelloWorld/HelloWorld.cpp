@@ -1,9 +1,10 @@
 //============================================================================
 // Name        : HelloWorld.cpp
-// Author      : http://nantonaku-shiawase.hatenablog.com/
+// Author      : Hiroyuki Nagata
 // Version     : 1.0.0
-// Copyright   : Common Public License
+// Copyright   : Copyright (C) 2012 Hiroyuki Nagata, All rights reserved.
 // Description : Hello World in wxWidgets with Japanese
+// Licence     : wxWindows Library Licence, Version 3.1
 //============================================================================
 
 #include "HelloWorld.h"
@@ -31,8 +32,8 @@ wxFrame(NULL, wxID_ANY, title, wxDefaultPosition, wxSize(640, 480)) {
 	fileMenu->Append(Minimal_Quit, wxT("&終了\tAlt-X"), wxT("このプログラムを終了します"));
 
 	wxMenuBar *menuBar = new wxMenuBar();
-	menuBar->Append(fileMenu, "&File");
-	menuBar->Append(helpMenu, "&Help");
+	menuBar->Append(fileMenu, wxT("&ファイル"));
+	menuBar->Append(helpMenu, wxT("&ヘルプ"));
 
 	SetMenuBar(menuBar);
 

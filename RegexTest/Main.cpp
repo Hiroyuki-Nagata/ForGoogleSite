@@ -1,9 +1,10 @@
 //============================================================================
 // Name        : Main.cpp
-// Author      : http://nantonaku-shiawase.hatenablog.com/
+// Author      : Hiroyuki Nagata
 // Version     : 1.0.0
-// Copyright   : Common Public License
+// Copyright   : Copyright (C) 2012 Hiroyuki Nagata, All rights reserved.
 // Description : regex test in wxWidgets with Japanese
+// Licence     : wxWindows Library Licence, Version 3.1
 //============================================================================
 
 #include <wx/wx.h>
