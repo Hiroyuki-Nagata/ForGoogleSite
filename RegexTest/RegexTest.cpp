@@ -44,7 +44,7 @@ wxFrame(NULL, wxID_ANY, title, wxDefaultPosition, wxSize(940, 640)) {
 	CreateStatusBar(2);
 	SetStatusText(wxT("wxRegExクラスのテスト用アプリです"));
 
-	// 初期文字列を設定する
+	// 初期文字列を設定する・元ネタは２ちゃんの某スレ
 	*m_tc1 << wxT(">>236<br>");
 	*m_tc1 << wxT("あるやん<br>");
 	*m_tc1 << wxT("http://up.null-x.me/poverty/img/poverty20830.jpg <br>");
@@ -62,7 +62,10 @@ void RegexTest::OnButtonTestRegex(wxCommandEvent& event) {
 	size_t start, len;
 
 	if (ax.Compile(regexText, wxRE_ADVANCED + wxRE_ICASE)) {
+		// まず正規表現をコンパイルします
 		for (tmp = text; ax.Matches(tmp); tmp = tmp.SubString(start+len, tmp.Len())) {
+			// textの中で複数マッチする部分が出るので、順番に書き換えていきます
+			// wxRegEx::GetMatch の項を見るべし
 			ax.GetMatch(&start, &len, 0);
 			result+=tmp.SubString(0, start-1);
 			result+=wxT("<a href=\"");
