@@ -2,8 +2,8 @@
   wxWidgets サンプルコード集
 ========== ========== ==========
 
-【最終更新日】	2012/09/01
-【 ウ ェ ブ 】	    http://nantonaku-shiawase.hatenablog.com/
+【最終更新日】	2012/09/22
+【 ウ ェ ブ 】	http://nantonaku-shiawase.hatenablog.com/
 【 E - mail 】  newserver002@gmail.com
 
 ---------- ----------
@@ -18,16 +18,19 @@ wxWindows licence
 ◇ 付属するアプリケーションの概要 ◇
 
 ・HelloWorld
-・・・wxWidgetsで日本語を使った最小単位のアプリケーション
+...wxWidgetsで日本語を使った最小単位のアプリケーション
 
 ・HtmlWindowTest
-・・・HTML読み込み用ウィンドウを使った最小単位のアプリケーション
+...HTML読み込み用ウィンドウを使った最小単位のアプリケーション
 
 ・Minimal
-・・・wxWidgets付属のminimalを日本語に直したアプリケーション
+...wxWidgets付属のminimalを日本語に直したアプリケーション
 
 ・RegexTest
-・・・正規表現クラスwxRegExを使ったアプリケーション
+...正規表現クラスwxRegExを使ったアプリケーション
 
 ・VirtualListTest
-・・・wxListctrlとwxAuiManagerを使ったアプリケーション
+...wxListctrlとwxAuiManagerを使ったアプリケーション
+
+・VirtualListSortTest
+...上のプログラムでソートを可能にした
