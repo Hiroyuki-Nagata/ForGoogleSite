@@ -61,4 +61,13 @@ wxString VirtualList::OnGetItemText(long item, long column) const {
 	}
 	return "";
 }
+/**
+ *  ラベル部分でのクリックイベント
+ */
+void VirtualList::Sort () {
+
+     // 中身をソートする
+     std::sort(m_chars.begin(),m_chars.end());
+     
+}
 

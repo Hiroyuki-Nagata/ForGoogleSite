@@ -11,6 +11,7 @@
 BEGIN_EVENT_TABLE(VirtualListTest, wxFrame)
 // リストでのクリック
 EVT_LIST_ITEM_FOCUSED(wxID_ANY, VirtualListTest::OnLeftClickAtListCtrl)
+EVT_LIST_COL_CLICK(wxID_ANY, VirtualListTest::OnLeftClickAtListCtrlCol)
 END_EVENT_TABLE()
 
 /**
@@ -18,61 +19,78 @@ END_EVENT_TABLE()
  */
 VirtualListTest::VirtualListTest(wxWindow* parent, int id, const wxString& title, const wxPoint& pos, const wxSize& size, long style):
 wxFrame(parent, id, title, pos, size, wxDEFAULT_FRAME_STYLE) {
-	// wxAuiManagerの初期化
-	m_mgr.SetManagedWindow(this);
+     // wxAuiManagerの初期化
+     m_mgr.SetManagedWindow(this);
 
-	// Auiのペインを配置する
-	wxSize client_size = GetClientSize();
-	wxAuiNotebook* ctrl1 = new wxAuiNotebook(this, wxID_ANY,
-			wxPoint(client_size.x, client_size.y), wxSize(430, 200));
-	ctrl1->Freeze();
+     // Auiのペインを配置する
+     wxSize client_size = GetClientSize();
+     wxAuiNotebook* ctrl1 = new wxAuiNotebook(this, wxID_ANY,
+					      wxPoint(client_size.x, client_size.y), wxSize(430, 200));
+     ctrl1->Freeze();
 
-	// 仮想リストのインスタンスを作成しペインに配置する
-	virtualList = new VirtualList(ctrl1);
-	// リストのカラムの幅を最大化する
-	for (int i = 0; i < virtualList->GetColumnCount(); i++) {
-		virtualList->SetColumnWidth(i, wxLIST_AUTOSIZE);
-	}
-	ctrl1->AddPage(virtualList, wxT("仮想リスト"), false);
-	ctrl1->Thaw();
+     // 仮想リストのインスタンスを作成しペインに配置する
+     virtualList = new VirtualList(ctrl1);
+     // リストのカラムの幅を最大化する
+     for (int i = 0; i < virtualList->GetColumnCount(); i++) {
+	  virtualList->SetColumnWidth(i, wxLIST_AUTOSIZE);
+     }
+     ctrl1->AddPage(virtualList, wxT("仮想リスト"), false);
+     ctrl1->Thaw();
 
-	// wxAuiManagerに全ての変更を「コミットする」
-	m_mgr.Update();
+     // wxAuiManagerに全ての変更を「コミットする」
+     m_mgr.Update();
 }
-
 /**
  * フレームクラスのデストラクタ
  */
 VirtualListTest::~VirtualListTest() {
-	// wxAuiManagerはデストラクタで破棄しなければいけない
-	m_mgr.UnInit();
+     // wxAuiManagerはデストラクタで破棄しなければいけない
+     m_mgr.UnInit();
 }
-
 /**
  * リストコントロール上でクリックした時そのセルの値をとってくる
  */
 void VirtualListTest::OnLeftClickAtListCtrl(wxListEvent& event) {
 
-	// wxListCtrlはクリックしたインデックスの位置はわかっても、カラムの位置はわからない
-	// よってマウスがクリックされた場所を割り出す必要がある
-    wxPoint click_point=::wxGetMousePosition();
-    wxPoint list_point=virtualList->GetScreenPosition();
+     // wxListCtrlはクリックしたインデックスの位置はわかっても、カラムの位置はわからない
+     // よってマウスがクリックされた場所を割り出す必要がある
+     wxPoint click_point=::wxGetMousePosition();
+     wxPoint list_point=virtualList->GetScreenPosition();
 
-    // delta x
-    int dx=click_point.x - list_point.x;
+     // delta x
+     int dx=click_point.x - list_point.x;
 
-    // work out the column
-    int ex=0; // cumulative sum of column widths
-    int col;
-    for (col=0; col < virtualList->GetColumnCount(); col++) {
-            ex += virtualList->GetColumnWidth(col);
-            if (ex > dx) break;
-    }
+     // work out the column
+     int ex=0; // cumulative sum of column widths
+     int col;
+     for (col=0; col < virtualList->GetColumnCount(); col++) {
+	  ex += virtualList->GetColumnWidth(col);
+	  if (ex > dx) break;
+     }
 
-    // インデックスはイベントからすぐに割り出せる
-	long index = event.GetIndex();
-	wxString response = virtualList->OnGetItemText(index, (long)col);
+     // インデックスはイベントからすぐに割り出せる
+     long index = event.GetIndex();
+     wxString response = virtualList->OnGetItemText(index, (long)col);
 
-	wxMessageBox(response);
+     wxMessageBox(response);
 }
+int wxCALLBACK MyCompareFunction(wxIntPtr item1, wxIntPtr item2, wxIntPtr WXUNUSED(sortData))
+{
 
+	wxMessageBox(wxString::Format("%d:%d 　の比較", item1, item2));
+    // inverse the order
+    if (item1 < item2)
+        return 1;
+    if (item1 > item2)
+        return -1;
+
+    return 0;
+}
+/**
+ * リストコントロールのラベルでクリックした場合の処理
+ */
+void VirtualListTest::OnLeftClickAtListCtrlCol (wxListEvent& event) {
+
+     virtualList->Sort();
+     virtualList->SetItemCount(virtualList->GetItemCount());
+}

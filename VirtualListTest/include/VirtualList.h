@@ -11,26 +11,29 @@
 #include <wx/wx.h>
 #include <wx/listctrl.h>
 #include <vector>
+#include <algorithm>
 
 struct CharacterInfo {
-	wxString number;
-	wxString name;
-	wxString comment;
+  wxString number;
+  wxString name;
+  wxString comment;
 };
 
 typedef std::vector<CharacterInfo> CountryList;
 
 class VirtualList: public wxListCtrl {
 
-	enum Columns {
-		COL_NUM = 0, COL_NAME, COL_COMMENT
-	};
+  enum Columns {
+    COL_NUM = 0, COL_NAME, COL_COMMENT
+  };
 
-public:
-	VirtualList(wxWindow* parent);
-	wxString OnGetItemText(long item, long column) const;
-private:
-	CountryList m_chars;
+ public:
+  VirtualList(wxWindow* parent);
+  wxString OnGetItemText(long item, long column) const;
+  void Sort();
+
+ private:
+  CountryList m_chars;
 };
 
 #endif /* VIRTUALLIST_H_ */

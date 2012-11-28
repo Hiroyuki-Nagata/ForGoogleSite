@@ -4,7 +4,7 @@ OBJECTS = VirtualListTest.o VirtualList.o Main.o
 
 # 基本コマンド
 RM 		:= rm
-CXX 	:= g++ -s
+CXX 	:= g++ -gstabs
 
 # 基本オプション
 CPPFLAGS = -Wall -I/c/MinGW/include -I include `wx-config --cxxflags`
