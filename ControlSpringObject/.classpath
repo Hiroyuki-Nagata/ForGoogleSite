@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="C:/Program Files/Java/spring-framework-2.5.5/dist/modules/spring-beans.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/Java/spring-framework-2.5.5/dist/modules/spring-context.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/Java/spring-framework-2.5.5/dist/modules/spring-context-support.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/Java/spring-framework-2.5.5/dist/modules/spring-core.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/Java/commons-logging-1.1.1/commons-logging-1.1.1.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

@@ -34,3 +34,10 @@ wxWindows licence
 
 ・VirtualListSortTest
 ...上のプログラムでソートを可能にした
+
+---------- ----------
+
+wxWidgets以外のソース
+
+・ControlSpringObject
+...XMLで定義したオブジェクトをタイマーで管理

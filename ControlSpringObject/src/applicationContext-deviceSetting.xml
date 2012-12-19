@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+	<bean id="something1" class="jp.gr.java_conf.nagata.DoSomethingObject">
+		<property name="message">
+			<value>定時報告であります！</value>
+		</property>
+		<property name="startMessage">
+			<value>タイマー起動であります！</value>
+		</property>
+		<property name="interval">
+			<value>1</value>
+		</property>
+	</bean>
+
+	<bean id="something2" class="jp.gr.java_conf.nagata.DoSomethingObject">
+		<property name="message">
+			<value>定時報告ですぞ！</value>
+		</property>
+		<property name="startMessage">
+			<value>タイマー起動でありまぞ！</value>
+		</property>
+		<property name="interval">
+			<value>2</value>
+		</property>
+	</bean>
+
+	<bean id="something3" class="jp.gr.java_conf.nagata.DoSomethingObject">
+		<property name="message">
+			<value>定時報告ですわ！</value>
+		</property>
+		<property name="startMessage">
+			<value>タイマー起動ですわ！</value>
+		</property>
+		<property name="interval">
+			<value>3</value>
+		</property>
+	</bean>
+
+	<bean id="something4" class="jp.gr.java_conf.nagata.DoSomethingObject">
+		<property name="message">
+			<value>bulletin</value>
+		</property>
+		<property name="startMessage">
+			<value>Ya</value>
+		</property>
+		<property name="interval">
+			<value>4</value>
+		</property>
+	</bean>
+
+	<bean id="something5" class="jp.gr.java_conf.nagata.DoSomethingObject">
+		<property name="message">
+			<value>доброе утро</value>
+		</property>
+		<property name="startMessage">
+			<value>да</value>
+		</property>
+		<property name="interval">
+			<value>5</value>
+		</property>
+	</bean>
+</beans>
