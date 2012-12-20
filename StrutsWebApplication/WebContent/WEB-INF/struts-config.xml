@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config PUBLIC
+ "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+ "http://struts.apache.org/dtds/struts-config_1_2.dtd">
+
+<struts-config>
+
+<form-beans>
+	<!--
+	loginForm用の設定
+	ログイン画面のidとpasswordをプロパティとして定義します。
+	-->
+
+	<form-bean dynamic="true" name="logonForm"
+		type="org.apache.struts.action.DynaActionForm">
+		<form-property name="id" type="java.lang.String" />
+		<form-property name="password" type="java.lang.String" />
+	</form-bean>
+	
+</form-beans>
+
+	<action-mappings>
+	
+	<!--
+	LogonAction用の設定
+	path : 論理パス
+	name : Form名
+	type : 呼び出すActionクラス
+	input    : validateするページ
+	validate : validateするかしないか
+	<forward name="論理名" path="遷移する画面(jsp)のパス" />
+	ここではログイン成功時の画面をsuccess、失敗のときをerrorと定義しています。
+	-->
+	
+	<action path="/logon"
+		name="logonForm"
+		type="jp.gr.java_conf.nagata.LogonAction"
+		input="/logon.jsp" validate="true">
+		<forward name="topmenu" path="/jsp/topmenu.jsp" />
+		<forward name="error" path="/jsp/loginerror.jsp" />
+	</action>
+	
+	<action path="/sessionTimeout"
+      type="org.apache.struts.actions.ForwardAction"
+      parameter="/jsp/sessiontimeout.jsp"/>
+	
+	</action-mappings>
+	
+</struts-config>
