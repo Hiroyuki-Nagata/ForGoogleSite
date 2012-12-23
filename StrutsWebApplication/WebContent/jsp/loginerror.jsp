@@ -9,7 +9,7 @@
 <!-- 以下転送処理・URLを変更しましょう！数字は転送までの時間です。 -->
 <META HTTP-EQUIV="Refresh" CONTENT="10;URL=${pageContext.request.contextPath}">
 
-<title>File not found / ネットマニア</title>
+<title>ログイン失敗画面 / ネットマニア</title>
 
 <link href="${pageContext.request.contextPath}/css/errorpage.css"
 	rel="stylesheet" type="text/css" />

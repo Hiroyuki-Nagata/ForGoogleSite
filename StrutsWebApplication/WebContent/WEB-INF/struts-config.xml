@@ -37,10 +37,18 @@
 		<forward name="error" path="/jsp/loginerror.jsp" />
 	</action>
 	
-	<action path="/sessionTimeout"
+	<action path="/topmenu"
+      type="org.apache.struts.actions.ForwardAction"
+      parameter="/jsp/topmenu.jsp"/>
+	
+	<action path="/sessiontimeout"
       type="org.apache.struts.actions.ForwardAction"
       parameter="/jsp/sessiontimeout.jsp"/>
-	
+
+	<action path="/loginerror"
+      type="org.apache.struts.actions.ForwardAction"
+      parameter="/jsp/loginerror.jsp"/>
+
 </action-mappings>
 
 	<!-- tilesを使用しない場合のRequestProcessor -->
