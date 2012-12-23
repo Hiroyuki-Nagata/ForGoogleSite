@@ -17,6 +17,7 @@ import org.apache.struts.action.DynaActionForm;
 
 public class LogonAction extends Action {
 	
+	/** ログインスタンス */
 	private static Logger logger = Logger.getLogger(LogonAction.class);
 	
 	public ActionForward execute(ActionMapping mapping, ActionForm form,

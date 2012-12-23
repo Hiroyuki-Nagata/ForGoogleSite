@@ -27,13 +27,22 @@ public class InitServlet extends HttpServlet {
 		if (!dbFile.exists()) {
 			// DBファイルが存在しない場合は認証用DBを作る
 			try {
+				logger.info("DataBase File Path :" + dbFilePath);
 				initDB(dbFilePath);
 			} catch (ClassNotFoundException e) {
 				logger.error("DBファイルの初期化に失敗しました");
 			}
+		} else {
+			logger.info("DataBase File is exist :" + dbFilePath);
 		}
 	}
 	
+	/**
+	 * システム初回起動時にデータベースファイルを初期化する
+	 * 
+	 * @param dbFilePath データベースファイルのパス
+	 * @throws ClassNotFoundException
+	 */
 	private void initDB(final String dbFilePath) throws ClassNotFoundException {
 		logger.info("認証用のDBを構築します");
 		

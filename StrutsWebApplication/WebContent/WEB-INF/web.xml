@@ -2,7 +2,32 @@
 <web-app id="WebApp_ID" version="2.4"
 	xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+	
 	<display-name>StrutsWebApplication</display-name>
+
+	<!-- JSP 2.0からはjsp-configタグ以下にtaglib設定を書く -->
+	<jsp-config>
+		<taglib>
+			<taglib-uri>/tags/sslext.tld</taglib-uri>
+			<taglib-location>/WEB-INF/tld/sslext.tld</taglib-location>
+		</taglib>
+		<taglib>
+			<taglib-uri>/tags/struts-bean.tld</taglib-uri>
+			<taglib-location>/WEB-INF/tld/struts-bean.tld</taglib-location>
+		</taglib>
+		<taglib>
+			<taglib-uri>/tags/struts-html.tld</taglib-uri>
+			<taglib-location>/WEB-INF/tld/struts-html.tld</taglib-location>
+		</taglib>
+		<taglib>
+			<taglib-uri>/tags/struts-logic.tld</taglib-uri>
+			<taglib-location>/WEB-INF/tld/struts-logic.tld</taglib-location>
+		</taglib>
+		<taglib>
+			<taglib-uri>/tags/struts-nested.tld</taglib-uri>
+			<taglib-location>/WEB-INF/tld/struts-nested.tld</taglib-location>
+		</taglib>
+	</jsp-config>
 
 	<welcome-file-list>
 		<welcome-file>/jsp/logon.jsp</welcome-file>

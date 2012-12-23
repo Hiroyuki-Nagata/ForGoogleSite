@@ -6,20 +6,17 @@
 <struts-config>
 
 <form-beans>
-	<!--
-	loginForm用の設定
-	ログイン画面のidとpasswordをプロパティとして定義します。
-	-->
+	<!-- loginForm用の設定 ログイン画面のidとpasswordをプロパティとして定義します。 -->
 
 	<form-bean dynamic="true" name="logonForm"
 		type="org.apache.struts.action.DynaActionForm">
 		<form-property name="id" type="java.lang.String" />
 		<form-property name="password" type="java.lang.String" />
 	</form-bean>
-	
+
 </form-beans>
 
-	<action-mappings>
+<action-mappings type="org.apache.struts.config.SecureActionConfig">
 	
 	<!--
 	LogonAction用の設定
@@ -44,6 +41,17 @@
       type="org.apache.struts.actions.ForwardAction"
       parameter="/jsp/sessiontimeout.jsp"/>
 	
-	</action-mappings>
+</action-mappings>
+
+	<!-- tilesを使用しない場合のRequestProcessor -->
+	<controller processorClass="org.apache.struts.action.SecureRequestProcessor" />
+	
+	<!-- SSL用の設定をここに記述する -->
+	<plug-in className="org.apache.struts.action.SecurePlugIn">
+		<set-property property="httpPort" value="8080" />
+		<set-property property="httpsPort" value="8443" />
+		<set-property property="enable" value="true" />
+		<set-property property="addSession" value="true" />
+	</plug-in>
 	
 </struts-config>

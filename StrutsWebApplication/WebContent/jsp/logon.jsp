@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib uri="/WEB-INF/tld/struts-html.tld" prefix="html"%>
+<%@ taglib uri="/tags/struts-html.tld" prefix="html"%>
+<%@ taglib uri="/tags/sslext.tld" prefix="sslext" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -18,8 +19,9 @@
 		<div id="login-box">
 
 			<H2>ログイン</H2>
-			フォームにユーザーIDとパスワードを入力してください <br /> <br />
-			<html:form action="/logon" method="post">
+			フォームにユーザーIDとパスワードを入力してください <br /><br />
+			<!-- HTTP/POST -->
+			<sslext:form action="/logon" >
 				<div id="login-box-name" style="margin-top: 20px;">ユーザーID:</div>
 				<div id="login-box-field" style="margin-top: 20px;">
 					<input name="id" class="form-login" title="Username" value=""
@@ -37,7 +39,7 @@
 				<br />
 				<br />
 				<input type="image" src="${pageContext.request.contextPath}/images/login-btn.png" width="103" height="42" style="margin-left: 90px;" name="submit">
-			</html:form>
+			</sslext:form>
 
 		</div>
 
