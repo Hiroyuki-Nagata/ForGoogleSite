@@ -15,6 +15,12 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.DynaActionForm;
 
+/**
+ * @author Hiroyuki Nagata
+ * 2012/12/23 新規作成
+ * 
+ * logon.jspから入力されたIDとパスワードを検証するアクション
+ */
 public class LogonAction extends Action {
 	
 	/** ログインスタンス */
@@ -30,9 +36,18 @@ public class LogonAction extends Action {
 		String password = (String) df.get("password");
 		logger.info("id=" + id + " password=" + password);
 
+		// データベースにアクセスして、IDとパスワードが合致するかチェックする
+		boolean authIsOK = false;
+		
+		try {
+			authIsOK = DBAccessor.checkAuthentification(id, password);
+		} catch (ClassNotFoundException e) {
+			String message = "データベースの読み込み処理に失敗しました";
+			logger.error(message, e);
+		}
+		
 		// IDとパスワードのチェック
-		if (id.equals("foo") && password.equals("bar")) {
-			
+		if (authIsOK) {
 			logger.info("認証成功");
 			
 			// セッションを開始します

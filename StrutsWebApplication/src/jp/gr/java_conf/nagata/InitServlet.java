@@ -14,14 +14,17 @@ import org.apache.log4j.Logger;
 
 public class InitServlet extends HttpServlet {
 
+	/** ログインスタンス */
 	private static Logger logger = Logger.getLogger(InitServlet.class);
+	/** データベースファイルのパス */
+	private static String dbFilePath = null;
 	
 	public void init() throws ServletException {
 		/* 初期化処理 */
 		logger.info("初期化処理中...");
 		
 		PropUtil prop = new PropUtil("db.properties");
-		String dbFilePath = prop.getProperty("db.filepath") + File.separator + prop.getProperty("db.filename");
+		dbFilePath = prop.getProperty("db.filepath") + File.separator + prop.getProperty("db.filename");
 		File dbFile = new File(dbFilePath);
 		
 		if (!dbFile.exists()) {
@@ -83,5 +86,13 @@ public class InitServlet extends HttpServlet {
         	DBCloseHelper.stmtClose(stmt);
         	DBCloseHelper.rsClose(rs);
         }
+	}
+
+	/**
+	 * データベースファイルのパスを返す
+	 * @return the dbFilePath
+	 */
+	public static String getDbFilePath() {
+		return dbFilePath;
 	}
 }
