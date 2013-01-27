@@ -109,7 +109,6 @@ void HtmlWindowTest::CellHover(wxHtmlCellEvent& event) {
  * 特定のセルがクリックされた時のイベント処理
  */
 void HtmlWindowTest::OnCellClicked(wxHtmlCellEvent& event) {
-	wxHtmlCell* cell = event.GetCell();
 }
 /**
  * リンクがクリックされた時のイベント処理

@@ -20,7 +20,7 @@ RM		= rm
 
 # compile option
 CXXFLAGS = `wx-config --cxxflags`
-LDFLAGS	 = `wx-config --libs` -static
+LDFLAGS	 = `wx-config --libs`
 
 # make all
 all : $(DEP) $(TARGET)
@@ -35,4 +35,4 @@ dep:
 	$(CXX) -MM -MG $(SOURCES) >makefile.dep
 
 clean:
-	$(RM) -f *.o $(TARGET).exe
+	$(RM) -f *.o $(TARGET).exe makefile.dep
