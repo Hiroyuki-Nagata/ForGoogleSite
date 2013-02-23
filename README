@@ -39,5 +39,8 @@ wxWindows licence
 
 wxWidgets以外のソース
 
-・ControlSpringObject
+・ControlSpringObject(Java)
 ...XMLで定義したオブジェクトをタイマーで管理
+
+・Autotools(C++)
+...ダイナミックリンクライブラリをAutotoolsで作成する(Win32,Unix対応)
