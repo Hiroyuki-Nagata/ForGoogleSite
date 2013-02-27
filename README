@@ -35,6 +35,11 @@ wxWindows licence
 ・VirtualListSortTest
 ...上のプログラムでソートを可能にした
 
+・wxUUID
+...wxWidgets上でUUIDを生成するためのクラス.
+ソースコードは以下から入手し、wx-2.9で使用するために修正している
+wxUUID author's homepage:http://www.caseyodonnell.org/athens_uga/codework/wxwidgets/
+
 ---------- ----------
 
 wxWidgets以外のソース

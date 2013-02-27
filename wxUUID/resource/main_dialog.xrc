@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<resource xmlns="http://www.wxwindows.org/wxxrc" version="2.3.0.1">
+	<object class="wxDialog" name="main_dialog">
+		<title>Dialog</title>
+		<style>wxCAPTION|wxSYSTEM_MENU|wxRESIZE_BORDER</style>
+		<centered>1</centered>
+		<object class="wxBoxSizer">
+			<flag>wxGROW|wxALL</flag>
+			<orient>wxVERTICAL</orient>
+			<object class="sizeritem">
+				<border>10</border>
+				<flag>wxALL|wxGROW</flag>
+				<object class="wxFlexGridSizer">
+					<rows>2</rows>
+					<cols>1</cols>
+					<vgap>10</vgap>
+					<hgap>10</hgap>
+					<growablecols>0</growablecols>
+					<object class="sizeritem">
+						<flag>wxALL|wxGROW</flag>
+						<object class="wxTextCtrl" name="uuid_text_ctrl">
+							<size>300,-1</size>
+							<font>
+								<face>COURIER</face>
+								<size>7</size>
+							</font>
+						</object>
+					</object>
+					<object class="sizeritem">
+						<flag>wxALL|wxGROW|wxALIGN_CENTRE</flag>
+						<object class="wxFlexGridSizer">
+							<rows>1</rows>
+							<cols>4</cols>
+							<vgap>10</vgap>
+							<hgap>10</hgap>
+							<object class="sizeritem">
+								<object class="wxButton" name="version1_button">
+									<label>Version 1</label>
+								</object>
+							</object>
+							<object class="sizeritem">
+								<object class="wxButton" name="version2_button">
+									<label>GUID</label>
+								</object>
+							</object>
+							<object class="sizeritem">
+								<object class="wxButton" name="version3_button">
+									<label>Version 3</label>
+									<enabled>0</enabled>
+								</object>
+							</object>
+							<object class="sizeritem">
+								<object class="wxButton" name="stress_button">
+									<label>Stress Test...</label>
+								</object>
+							</object>
+						</object>
+					</object>
+				</object>
+			</object>
+			<object class="sizeritem">
+				<border>10</border>
+				<flag>wxALL|wxGROW</flag>
+				<object class="wxFlexGridSizer">
+					<rows>1</rows>
+					<cols>2</cols>
+					<vgap>10</vgap>
+					<hgap>10</hgap>
+					<object class="sizeritem">
+						<object class="wxButton" name="file_menu_exit">
+							<label>Close</label>
+						</object>
+					</object>
+					<object class="sizeritem">
+						<object class="wxButton" name="help_menu_about">
+							<label>About</label>
+						</object>
+					</object>
+				</object>
+			</object>
+		</object>
+	</object>
+</resource>
