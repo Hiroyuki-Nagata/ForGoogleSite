@@ -21,7 +21,7 @@ static const wxString FAIL_TO_READ_PAGE =
 		wxT("<html><head><meta http-equiv=\"Content-Type\" content=\"text/html; \
 			charset=UTF-8\"><title></title></head><body><span>ファイルの読み込みに失敗しました</span></body></html>");
 
-class WXDLLEXPORT HtmlContentWindow : public wxHtmlWindow {
+class HtmlContentWindow : public wxHtmlWindow {
 
 public:
 	/**

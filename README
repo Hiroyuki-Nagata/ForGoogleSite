@@ -40,6 +40,9 @@ wxWindows licence
 ソースコードは以下から入手し、wx-2.9で使用するために修正している
 wxUUID author's homepage:http://www.caseyodonnell.org/athens_uga/codework/wxwidgets/
 
+・wxSQLite3
+...wxSQLite3とSQLiteを一緒にビルドさせるテスト
+
 ---------- ----------
 
 wxWidgets以外のソース

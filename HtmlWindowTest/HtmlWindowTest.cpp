@@ -78,10 +78,11 @@ void HtmlWindowTest::OnQuit(wxCommandEvent& event) {
  */
 void HtmlWindowTest::OnAbout(wxCommandEvent& event) {
 
-wxMessageBox(wxString::Format(wxT("%sにようこそ!\n\n")
-				wxT("これはwxHtmlWindowの動作検証用アプリケーションです\n")
-				wxT("%s環境で動作しています"), wxVERSION_STRING, wxGetOsDescription()),
-		wxT("このアプリケーションについて"), wxOK | wxICON_INFORMATION, this);
+     wxString message = //wxVERSION_STRING +
+	  wxT("にようこそ!\n\nこれはwxHtmlWindowの動作検証用アプリケーションです\n") +
+	  wxGetOsDescription() +
+	  wxT("環境で動作しています");
+     wxMessageBox(message);
 }
 /**
  * コンボボックス変更時イベント処理
