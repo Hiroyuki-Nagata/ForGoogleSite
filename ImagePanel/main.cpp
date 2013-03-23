@@ -1,47 +1,31 @@
-#include <wx/wx.h>
-#include "imagepanel.hpp"
- 
-// ----------------------------------------
-// how-to-use example
- 
-class MyApp: public wxApp
-{
-    
-     wxFrame* frame;
-     wxImagePanel* drawPane;
-private:
-     //wxAuiManager m_mgr;
+//============================================================================
+// Name        : main.cpp
+// Author      : Hiroyuki Nagata
+// Version     : 1.0.0
+// Copyright   : Copyright (C) 2012 Hiroyuki Nagata, All rights reserved.
+// Description : use ImagePanel with wxAuiNotebook
+// Licence     : wxWindows Library Licence, Version 3.1
+//============================================================================
+
+#include <wx/image.h>
+#include "ImagePanelTest.hpp"
+
+// OnInitが呼ばれる前にロケールのクラスを継承しておく
+class wxMain: public wxApp {
+     wxLocale m_Locale;
 
 public:
-     bool OnInit()
-	  {
-	       // make sure to call this first
-	       wxInitAllImageHandlers();
-
-	       wxBoxSizer* sizer = new wxBoxSizer(wxHORIZONTAL);
-	       frame = new wxFrame(NULL, wxID_ANY, wxT("Hello wxDC"), wxPoint(50,50), wxSize(800,600));
-
-               // Auiのペインを配置する
-	       //wxSize client_size = frame->GetClientSize();
-	       //wxAuiNotebook* ctrl1 = new wxAuiNotebook(frame, wxID_ANY,
-	       //wxPoint(client_size.x, client_size.y), wxSize(430, 200), 
-	       //    wxAUI_NB_TOP | wxAUI_NB_TAB_SPLIT | wxAUI_NB_TAB_MOVE | wxAUI_NB_SCROLL_BUTTONS);
-	       //ctrl1->Freeze();
-
-        
-	       // then simply create like this
-	       drawPane = new wxImagePanel( frame, wxT("sample.jpg"), wxBITMAP_TYPE_JPEG);
-	       sizer->Add(drawPane, 1, wxEXPAND);
-
-	       //ctrl1->Thaw();
-	       // wxAuiManagerに全ての変更を「コミットする」
-	       //m_mgr.Update();        
-
-	       frame->SetSizer(sizer);        
-	       frame->Show();
-	       return true;
-	  } 
-    
+     wxMain() : m_Locale(wxLANGUAGE_DEFAULT){}
+     bool OnInit();
 };
- 
-IMPLEMENT_APP(MyApp)
+
+IMPLEMENT_APP(wxMain)
+
+bool wxMain::OnInit()
+{
+    wxInitAllImageHandlers();
+    ImagePanelTest* imgPanelTest = new ImagePanelTest(NULL, wxID_ANY, wxEmptyString);
+    SetTopWindow(imgPanelTest);
+    imgPanelTest->Show();
+    return true;
+}
