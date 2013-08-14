@@ -1,5 +1,5 @@
 # Makefile
-TARGET 	= VirtualListTest.exe
+TARGET 	= VirtualListTest
 SOURCES = $(shell find . -name '*.cpp')
 OBJECTS = $(SOURCES:.cpp=.o)
 # sources for dependency
@@ -12,7 +12,7 @@ CXX 	:= g++ -s
 
 # basic option
 CXXFLAGS = -Wall -I . `wx-config --cxxflags`
-LDFLAGS  = -static -lwx_mswu_aui-2.9 `wx-config --libs`
+LDFLAGS  = `wx-config --libs base,core,aui`
 # dummy target
 .PHONY	: clean
 # suffix rule

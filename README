@@ -2,7 +2,7 @@
   wxWidgets サンプルコード集
 ========== ========== ==========
 
-【最終更新日】	2012/09/22
+【最終更新日】	2013/08/14
 【 ウ ェ ブ 】	http://nantonaku-shiawase.hatenablog.com/
 【 E - mail 】  newserver002@gmail.com
 
@@ -14,6 +14,13 @@ https://sites.google.com/site/programmirovanienotes/
 
 ◇ ライセンス ◇
 wxWindows licence
+
+◇ 使い方 ◇
+$ git clone https://github.com/Hiroyuki-Nagata/ForGoogleSite.git
+$ git submodule init
+$ git submodule update
+
+...後は各ディレクトリでご自由に
 
 ◇ 付属するアプリケーションの概要 ◇
 
@@ -43,6 +50,9 @@ wxUUID author's homepage:http://www.caseyodonnell.org/athens_uga/codework/wxwidg
 ・wxSQLite3
 ...wxSQLite3とSQLiteを一緒にビルドさせるテスト
 
+・F*ck_OSX_C++
+...Mac OSXはクソ
+
 ---------- ----------
 
 wxWidgets以外のソース
@@ -52,3 +62,6 @@ wxWidgets以外のソース
 
 ・Autotools(C++)
 ...ダイナミックリンクライブラリをAutotoolsで作成する(Win32,Unix対応)
+
+・Preprocessor(C++)
+...C++のプリプロセッサ機能を使った制御構文のテスト

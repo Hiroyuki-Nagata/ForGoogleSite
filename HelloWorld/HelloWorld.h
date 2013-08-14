@@ -13,14 +13,17 @@
 #include <wx/wx.h>
 
 class HelloWorld: public wxFrame {
-public:
-	HelloWorld(const wxString& title);
+ public:
+  HelloWorld(const wxString& title);
 
-	void OnQuit(wxCommandEvent& event);
-	void OnAbout(wxCommandEvent& event);
+  void OnQuit(wxCommandEvent& event);
+  void OnAbout(wxCommandEvent& event);
 
-private:
-	DECLARE_EVENT_TABLE()
+  // 再起動処理のためのPID
+  unsigned long pid;
+
+ private:
+  DECLARE_EVENT_TABLE()
 };
 
 #endif /* HELLOWORLD_H_ */

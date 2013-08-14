@@ -29,7 +29,7 @@ wxFrame(NULL, wxID_ANY, title, wxDefaultPosition, wxSize(640, 480)) {
 
 	wxMenu *helpMenu = new wxMenu;
 	helpMenu->Append(Minimal_About, wxT("&ヘルプ...\tF1"), wxT("このプログラムについて"));
-	fileMenu->Append(Minimal_Quit, wxT("&終了\tAlt-X"), wxT("このプログラムを終了します"));
+	fileMenu->Append(Minimal_Quit, wxT("&再起動\tAlt-X"), wxT("このプログラムを再起動します"));
 
 	wxMenuBar *menuBar = new wxMenuBar();
 	menuBar->Append(fileMenu, wxT("&ファイル"));
@@ -47,16 +47,22 @@ wxFrame(NULL, wxID_ANY, title, wxDefaultPosition, wxSize(640, 480)) {
  * 閉じるを押した際のイベント
  */
 void HelloWorld::OnQuit(wxCommandEvent& event) {
-	Close(true);
+     this->pid = wxGetProcessId();
+     wxMessageBox(wxString::Format(wxT("pid: %lu"), pid));
+     
+     Close(true);
 }
 /**
  * ヘルプを押した際のイベント
  */
 void HelloWorld::OnAbout(wxCommandEvent& event) {
 
-wxMessageBox(wxString::Format(wxT("%sにようこそ!\n\n")
-				wxT("これはwxWidgetsの最小アプリです\n")
-				wxT("%s環境で動作しています"), wxVERSION_STRING, wxGetOsDescription()),
-		wxT("このアプリケーションについて"), wxOK | wxICON_INFORMATION, this);
+     wxString message = wxVERSION_STRING;     
+     message += wxT("にようこそ!\n\nこれはwxWidgetsの最小アプリです\n");
+     message += wxGetOsDescription();
+     message += wxT("環境で動作しています\n\n");
+     message += wxGetHomeDir();
+
+     wxMessageBox(message, wxT("このアプリケーションについて"), wxOK | wxICON_INFORMATION, this);
 }
 

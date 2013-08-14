@@ -12,6 +12,7 @@
 
 #include <wx/wx.h>
 #include <wx/combobox.h>
+#include <wx/numdlg.h>
 #include "HtmlContentWindow.h"
 
 class HtmlWindowTest: public wxFrame {
@@ -20,6 +21,7 @@ public:
 
 	void OnQuit(wxCommandEvent& event);
 	void OnAbout(wxCommandEvent& event);
+	void OnForceScroll(wxCommandEvent& event);
 	void OnChangeHtmlSource(wxCommandEvent& event);
 	void CellHover(wxHtmlCellEvent& event);
 	void OnCellClicked(wxHtmlCellEvent& event);

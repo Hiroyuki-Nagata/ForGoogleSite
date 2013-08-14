@@ -7,12 +7,12 @@
 #============================================================================
 
 # target and sources
-CXX		= g++ -O2 -Wall
+CXX	= g++ -O2 -Wall
 TARGET	= HelloWorld
 OBJECTS = Main.o HelloWorld.o
 
 # basic command
-RM		= rm
+RM	= rm
 
 # make all
 all : $(TARGET)
@@ -27,4 +27,4 @@ Main.o : HelloWorld.h
 		$(CXX) -c Main.cpp `wx-config --cxxflags`
 
 clean:
-	$(RM) -f *.o $(TARGET).exe
+	$(RM) -f *.o $(TARGET) $(TARGET).exe

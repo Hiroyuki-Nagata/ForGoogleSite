@@ -7,7 +7,7 @@
 #============================================================================
 
 # target and sources
-CXX		= g++ -O2 -Wall
+CXX	= g++ -O2 -Wall
 TARGET	= HtmlWindowTest
 SOURCES = $(notdir $(shell find . -name '*.cpp'))
 OBJECTS = $(SOURCES:.cpp=.o)
@@ -20,7 +20,7 @@ RM		= rm
 
 # compile option
 CXXFLAGS = `wx-config --cxxflags`
-LDFLAGS	 = `wx-config --libs` -static
+LDFLAGS	 = `wx-config --libs`
 
 # make all
 all : $(DEP) $(TARGET)

@@ -67,7 +67,7 @@ TAG_HANDLER_PROC(tag)
 	  wxComboBox *pOldBox = m_pComboBox;
 	  int iOldNumber = m_iNumber;
 
-	  m_pComboBox = new wxComboBox(m_WParser->GetWindowInterface()->GetHTMLWindow(), wxID_ANY, "", wxPoint(0,0), wxDefaultSize, 0, NULL, wxCB_READONLY  | wxCB_DROPDOWN);
+	  m_pComboBox = new wxComboBox(m_WParser->GetWindowInterface()->GetHTMLWindow(), wxID_ANY, wxEmptyString, wxPoint(0,0), wxDefaultSize, 0, NULL, wxCB_READONLY  | wxCB_DROPDOWN);
 	  m_pComboBox->Show(true);
 
 	  //m_Parser->PushTagHandler(this, "OPTION");
@@ -132,18 +132,21 @@ TAGS_MODULE_BEGIN(Form)
 
      TAGS_MODULE_END(Form)
 
+BEGIN_EVENT_TABLE(HtmlContentWindow, wxHtmlWindow)
+  EVT_SIZE(HtmlContentWindow::OnSize)
+END_EVENT_TABLE()
+
 /**
  * 通常のコンストラクタ
  */
-     HtmlContentWindow::HtmlContentWindow(wxWindow* parent,
-					  const wxString& htmlContentPath) :
-     wxHtmlWindow(parent, wxID_ANY, wxDefaultPosition, wxDefaultSize,
-		  wxHW_SCROLLBAR_AUTO) {
+HtmlContentWindow::HtmlContentWindow(wxWindow* parent, const wxString& htmlContentPath) : 
+wxHtmlWindow(parent, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxHW_SCROLLBAR_AUTO) {
 
      // 指定されたパスからHTMLファイルを読み出す
      const wxString htmlSource = GetHtmlFile(htmlContentPath);
      // メモリに読み込んだHTMLを表示する
      this->SetPage(htmlSource);
+     this->SetLabel(wxT("HtmlContentWindow"));
 }
 /**
  * HTMLファイルを再読み込みする
@@ -206,4 +209,29 @@ size_t HtmlContentWindow::GetFileSize(const wxString& htmlContentPath) {
 	  // ファイルが存在しなかった場合
 	  return 0;
      }
+}
+/**
+ * ウィンドウのサイズ変更時処理
+ */
+void HtmlContentWindow::OnSize(wxSizeEvent& event) {
+
+     //wxString currpage = GetOpenedPage(); 
+     //int x, y; 
+     //GetViewStart(&x, &y);         // save current position 
+     //wxMessageBox(wxString::Format(wxT("x: %d, y: %d"), x, y));
+
+     // if ( !currpage.IsEmpty() ) {
+     // 	  LoadPage(currpage);        // reload page 
+     // 	  Scroll(x, y);              // scroll to old position 
+     // }
+     wxHtmlWindow::OnSize(event);
+     Scroll(0, 100);
+     event.Skip(false); 
+}
+/**
+ * ウィンドウを強制的にスクロールさせる
+ */
+void HtmlContentWindow::ForceScrollWindow(int& x, int& y) {
+     wxMessageBox(wxString::Format(wxT("スクロール実施: x = %d, y = %d"), x, y));
+     Scroll(x, y);
 }

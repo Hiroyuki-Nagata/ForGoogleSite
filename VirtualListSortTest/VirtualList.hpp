@@ -10,10 +10,11 @@
 #ifndef VIRTUALLIST_HPP_
 #define VIRTUALLIST_HPP_
 
-#include <wx/wx.h>
-#include <wx/listctrl.h>
 #include <vector>
 #include <algorithm>
+#include <wx/wx.h>
+#include <wx/listctrl.h>
+#include <wx/imaglist.h>
 
 class CharacterInfo;
 
@@ -61,6 +62,7 @@ private:
      bool m_number_f;
      wxString m_name;
      wxString m_comment;
+     wxListItem* m_listItem;
 };
 
 typedef std::vector<CharacterInfo> CharacterList;
@@ -68,15 +70,20 @@ typedef std::vector<CharacterInfo> CharacterList;
 class VirtualList: public wxListCtrl {
 
      enum Columns {
-	  COL_NUM = 0, COL_NAME, COL_COMMENT
+	  COL_NUM = 0,
+	  COL_NAME,
+	  COL_COMMENT
      };
 
 public:
      VirtualList(wxWindow* parent);
+     ~VirtualList();
      wxString OnGetItemText(long item, long column) const;
      void SortVector(long item, long column);
+     virtual int OnGetItemColumnImage(long item, long column) const;
 
 private:
+     wxImageList* threadImage;
      CharacterList m_chars;
      bool m_number_f;
 };
