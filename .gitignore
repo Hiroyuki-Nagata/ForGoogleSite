@@ -1,6 +1,5 @@
 *.o
 *.lo
-Makefile
 */Makefile.in
 Makefile.in
 JaneClone.app*
