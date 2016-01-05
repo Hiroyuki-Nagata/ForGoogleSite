@@ -11,6 +11,7 @@
 #define HELLOWORLD_H_
 
 #include <wx/wx.h>
+#include "LockedQueue.hpp"
 
 class HelloWorld: public wxFrame {
  public:

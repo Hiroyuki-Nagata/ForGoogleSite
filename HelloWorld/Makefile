@@ -7,24 +7,29 @@
 #============================================================================
 
 # target and sources
-CXX	= g++ -O2 -Wall
+CXX	= g++ -O2 -Wall -std=c++11
 TARGET	= HelloWorld
 OBJECTS = Main.o HelloWorld.o
 
 # basic command
 RM	= rm
+ifeq ($(OS), Windows_NT)
+    EXT := .exe
+else
+    EXT :=
+endif
 
 # make all
 all : $(TARGET)
 
-$(TARGET) : $(OBJECTS) 
+$(TARGET) : $(OBJECTS)
 		$(CXX) $(OBJECTS) -o $(TARGET) `wx-config --libs`
 
-HelloWorld.o : HelloWorld.h
+HelloWorld.o : HelloWorld.h LockedQueue.hpp
 		$(CXX) -c HelloWorld.cpp `wx-config --cxxflags`
 
 Main.o : HelloWorld.h
 		$(CXX) -c Main.cpp `wx-config --cxxflags`
 
 clean:
-	$(RM) -f *.o $(TARGET) $(TARGET).exe
+	$(RM) -f *.o $(TARGET) $(TARGET)$(EXT)
