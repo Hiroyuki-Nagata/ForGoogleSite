@@ -15,7 +15,7 @@
 static const wxCmdLineEntryDesc gCmdLineDesc[] =
 {
      // コマンドラインオプションに -p or pid=xxx と入力された場合
-     { wxCMD_LINE_OPTION, wxT("p"), wxT("pid"), wxT("past worked JaneClone pid"), 
+     { wxCMD_LINE_OPTION, _("p"), _("pid"), _("past worked HelloWorld pid"),
        wxCMD_LINE_VAL_NUMBER, wxCMD_LINE_PARAM_OPTIONAL },
      { wxCMD_LINE_NONE }
 };
@@ -34,7 +34,7 @@ public:
      virtual void OnInitCmdLine(wxCmdLineParser& parser);
      virtual bool OnCmdLineParsed(wxCmdLineParser& parser);
 private:
-     long m_pid;
+     unsigned long m_pid;
 };
 
 IMPLEMENT_APP(MyApp)
@@ -64,7 +64,7 @@ int MyApp::OnExit() {
 
      if (pid != 0) {
 	  // 0でなければ再起動処理を行う & このプロセスは殺す
-	  wxString execute = wxGetCwd() + wxT("/JaneClone");
+	  wxString execute = wxGetCwd() + wxT("/HelloWorld");
 	  ::wxExecute(execute + wxString::Format(_(" -p %lu"), pid), wxEXEC_ASYNC, NULL);
      }
 
@@ -82,6 +82,7 @@ void MyApp::OnInitCmdLine(wxCmdLineParser& parser) {
  * コマンドラインからパラメーターを読み取る
  */
 bool MyApp::OnCmdLineParsed(wxCmdLineParser& parser) {
-     parser.Found(wxT("p"), &m_pid);
+     long currentPid = static_cast<long>(m_pid);
+     parser.Found(_("p"), &currentPid);
      return true;
 }
