@@ -44,10 +44,8 @@ IMPLEMENT_APP(MyApp)
  */
 bool MyApp::OnInit() {
 
-     // コマンドラインで与えられた引数を取得する
-     if ((m_pid != 0) && (m_pid == wxGetProcessId())) {
-	  wxMessageBox(wxT("wait wait"));
-     }
+    if (!wxApp::OnInit())
+	 return false;
 
      wxHelloWorld = new HelloWorld(wxT("wxWidgetsでHelloWorld!!"));
      wxHelloWorld->Show(true);
@@ -59,11 +57,9 @@ bool MyApp::OnInit() {
  */
 int MyApp::OnExit() {
 
-     unsigned long pid = wxHelloWorld->pid;
-     wxMessageBox(wxString::Format(wxT("pid: %lu"), pid));
+     unsigned long pid = wxGetProcessId();
 
-     if (pid != 0) {
-	  // 0でなければ再起動処理を行う & このプロセスは殺す
+     if (HelloWorld::doRestart) {
 	  wxString execute = wxGetCwd() + wxT("/HelloWorld");
 	  ::wxExecute(execute + wxString::Format(_(" -p %lu"), pid), wxEXEC_ASYNC, NULL);
      }

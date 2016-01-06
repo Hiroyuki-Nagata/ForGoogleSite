@@ -10,13 +10,19 @@
 #include "HelloWorld.h"
 
 enum {
-	Minimal_Quit = wxID_EXIT, Minimal_About = wxID_ABOUT
+     Minimal_Quit = 1,
+     Minimal_About,
+     Minimal_Restart
 };
 
 BEGIN_EVENT_TABLE(HelloWorld, wxFrame)
+EVT_MENU(wxID_EXIT, HelloWorld::OnQuit)
 EVT_MENU(Minimal_Quit, HelloWorld::OnQuit)
+EVT_MENU(Minimal_Restart, HelloWorld::OnRestart)
 EVT_MENU(Minimal_About, HelloWorld::OnAbout)
 END_EVENT_TABLE()
+
+bool HelloWorld::doRestart = false;
 
 /**
  * wxFrameクラスのコンストラクタ
@@ -24,32 +30,36 @@ END_EVENT_TABLE()
 HelloWorld::HelloWorld(const wxString& title) :
 wxFrame(NULL, wxID_ANY, title, wxDefaultPosition, wxSize(640, 480)) {
 
-	// メニューバーの設置
-	wxMenu *fileMenu = new wxMenu;
+     // メニューバーの設置
+     wxMenu *fileMenu = new wxMenu;
+     wxMenu *helpMenu = new wxMenu;
+     helpMenu->Append(Minimal_About, wxT("&ヘルプ..."), wxT("このプログラムについて"));
+     fileMenu->Append(Minimal_Restart, wxT("&再起動"), wxT("このプログラムを再起動します"));
+     fileMenu->Append(Minimal_Quit, wxT("&終了"), wxT("このプログラムを終了します"));
 
-	wxMenu *helpMenu = new wxMenu;
-	helpMenu->Append(Minimal_About, wxT("&ヘルプ...\tF1"), wxT("このプログラムについて"));
-	fileMenu->Append(Minimal_Quit, wxT("&再起動\tAlt-X"), wxT("このプログラムを再起動します"));
+     wxMenuBar *menuBar = new wxMenuBar();
+     menuBar->Append(fileMenu, wxT("&ファイル"));
+     menuBar->Append(helpMenu, wxT("&ヘルプ"));
 
-	wxMenuBar *menuBar = new wxMenuBar();
-	menuBar->Append(fileMenu, wxT("&ファイル"));
-	menuBar->Append(helpMenu, wxT("&ヘルプ"));
+     SetMenuBar(menuBar);
 
-	SetMenuBar(menuBar);
+     // ステータスバーを設置する
+     CreateStatusBar(2);
+     SetStatusText(wxT("wxWidgetsにようこそ!"));
 
-	// ステータスバーを設置する
-	CreateStatusBar(2);
-	SetStatusText(wxT("wxWidgetsにようこそ!"));
-
-	Centre();
+     Centre();
 }
 /**
- * 閉じるを押した際のイベント
+ * 終了
  */
 void HelloWorld::OnQuit(wxCommandEvent& event) {
-     this->pid = wxGetProcessId();
-     wxMessageBox(wxString::Format(wxT("pid: %lu"), pid));
-     
+     Close(true);
+}
+/**
+ * 再起動
+ */
+void HelloWorld::OnRestart(wxCommandEvent& event) {
+     doRestart = true;
      Close(true);
 }
 /**
@@ -57,7 +67,7 @@ void HelloWorld::OnQuit(wxCommandEvent& event) {
  */
 void HelloWorld::OnAbout(wxCommandEvent& event) {
 
-     wxString message = wxVERSION_STRING;     
+     wxString message = wxVERSION_STRING;
      message += wxT("にようこそ!\n\nこれはwxWidgetsの最小アプリです\n");
      message += wxGetOsDescription();
      message += wxT("環境で動作しています\n\n");
@@ -65,4 +75,3 @@ void HelloWorld::OnAbout(wxCommandEvent& event) {
 
      wxMessageBox(message, wxT("このアプリケーションについて"), wxOK | wxICON_INFORMATION, this);
 }
-

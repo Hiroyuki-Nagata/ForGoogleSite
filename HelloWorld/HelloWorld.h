@@ -14,17 +14,21 @@
 #include "LockedQueue.hpp"
 
 class HelloWorld: public wxFrame {
- public:
-  HelloWorld(const wxString& title);
 
-  void OnQuit(wxCommandEvent& event);
-  void OnAbout(wxCommandEvent& event);
+public:
+     HelloWorld(const wxString& title);
 
-  // 再起動処理のためのPID
-  unsigned long pid;
+     void OnQuit(wxCommandEvent& event);
+     void OnRestart(wxCommandEvent& event);
+     void OnAbout(wxCommandEvent& event);
 
- private:
-  DECLARE_EVENT_TABLE()
+     // 再起動処理のためのPID
+     unsigned long pid;
+     // 再起動処理のためのフラグ
+     static bool doRestart;
+
+private:
+     DECLARE_EVENT_TABLE()
 };
 
 #endif /* HELLOWORLD_H_ */
