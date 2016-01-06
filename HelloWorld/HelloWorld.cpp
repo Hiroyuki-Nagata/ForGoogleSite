@@ -43,9 +43,29 @@ wxFrame(NULL, wxID_ANY, title, wxDefaultPosition, wxSize(640, 480)) {
 
      SetMenuBar(menuBar);
 
+     // フレームにパネルを載せる
+     wxPanel *panel = new wxPanel(this, -1);
+     wxBoxSizer *vbox = new wxBoxSizer(wxVERTICAL);
+
+     m_tc1 = new wxTextCtrl(panel, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxTE_MULTILINE);
+     vbox->Add(m_tc1, 1, wxEXPAND | wxLEFT | wxRIGHT | wxTOP, 10);
+
+     m_tc2 = new wxTextCtrl(panel, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxTE_MULTILINE);
+     vbox->Add(m_tc2, 1, wxEXPAND | wxLEFT | wxRIGHT, 10);
+
+     // 説明とボタン
+     wxBoxSizer *hbox = new wxBoxSizer(wxHORIZONTAL);
+     wxStaticText *st = new wxStaticText(panel, wxID_ANY, wxT("何か説明："));
+     hbox->Add(st, 0);
+     wxButton *btn = new wxButton(panel, wxID_ANY, wxT("wxThreadのテスト"));
+     hbox->Add(btn, 0);
+     vbox->Add(hbox, 0, wxALIGN_RIGHT | wxRIGHT, 10);
+
+     panel->SetSizer(vbox);
+
      // ステータスバーを設置する
      CreateStatusBar(2);
-     SetStatusText(wxT("wxWidgetsにようこそ!"));
+     SetStatusText(wxT("wxThreadのテスト用アプリです"));
 
      Centre();
 }

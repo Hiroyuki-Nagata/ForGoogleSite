@@ -27,6 +27,9 @@ public:
      // 再起動処理のためのフラグ
      static bool doRestart;
 
+     wxTextCtrl* m_tc1;
+     wxTextCtrl* m_tc2;
+
 private:
      DECLARE_EVENT_TABLE()
 };
