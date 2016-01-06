@@ -12,7 +12,8 @@
 enum {
      Minimal_Quit = 1,
      Minimal_About,
-     Minimal_Restart
+     Minimal_Restart,
+     Minimal_LockedQueue
 };
 
 BEGIN_EVENT_TABLE(HelloWorld, wxFrame)
@@ -20,6 +21,7 @@ EVT_MENU(wxID_EXIT, HelloWorld::OnQuit)
 EVT_MENU(Minimal_Quit, HelloWorld::OnQuit)
 EVT_MENU(Minimal_Restart, HelloWorld::OnRestart)
 EVT_MENU(Minimal_About, HelloWorld::OnAbout)
+EVT_MENU(Minimal_LockedQueue, HelloWorld::OnTestLockedQueue)
 END_EVENT_TABLE()
 
 bool HelloWorld::doRestart = false;
@@ -55,9 +57,9 @@ wxFrame(NULL, wxID_ANY, title, wxDefaultPosition, wxSize(640, 480)) {
 
      // 説明とボタン
      wxBoxSizer *hbox = new wxBoxSizer(wxHORIZONTAL);
-     wxStaticText *st = new wxStaticText(panel, wxID_ANY, wxT("何か説明："));
+     wxStaticText *st = new wxStaticText(panel, wxID_ANY, wxT("ワーカースレッドを起動させるよ："));
      hbox->Add(st, 0);
-     wxButton *btn = new wxButton(panel, wxID_ANY, wxT("wxThreadのテスト"));
+     wxButton *btn = new wxButton(panel, Minimal_LockedQueue, wxT("wxThreadのテスト"));
      hbox->Add(btn, 0);
      vbox->Add(hbox, 0, wxALIGN_RIGHT | wxRIGHT, 10);
 
@@ -94,4 +96,15 @@ void HelloWorld::OnAbout(wxCommandEvent& event) {
      message += wxGetHomeDir();
 
      wxMessageBox(message, wxT("このアプリケーションについて"), wxOK | wxICON_INFORMATION, this);
+}
+/**
+ * wxThreadのテスト
+ */
+void HelloWorld::OnTestLockedQueue(wxCommandEvent& event) {
+
+     // キューを作成　サイズは2
+     wxMutex mutex;
+     wxCondition enq(mutex), deq(mutex);
+     wxLockedQueue<int> lq(2, &mutex, &enq, &deq);
+     //WorkerThread<int>* thread = new WorkerThread<int>(lq);
 }

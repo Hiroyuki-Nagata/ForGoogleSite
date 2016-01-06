@@ -50,42 +50,88 @@ private:
      std::condition_variable c_deq;
 };
 
+//
+// ここからwxThreadを使ってみる
+//
+#include <wx/thread.h>
 
 template <class T>
-struct wxLockedQueue {
+class wxLockedQueue {
+
+public:
      // Specify queue size at constructor
-     explicit wxLockedQueue(int capacity)
-	  :  capacity(capacity)
-	  {}
+     wxLockedQueue(int capacity, wxMutex* mutex, wxCondition* e, wxCondition* d) : capacity(capacity)
+	  {
+	       m = mutex;
+	       cEnq = e;
+	       cDeq = d;
+	  }
 
      // Add x to queue
      void Enqueue(const T& x) {
-	  m.Lock();
+	  m->Lock();
 	  // Wait and blocking until somethings call #Broadcast or #Signal
 	  // But, if the queue is full when called, wait and blocking
-	  cEnq.Wait([this] { return data.size() != capacity; });
+	  cEnq->Wait([this] { return data.size() != capacity; });
 	  data.push_back(x);
 	  // Broadcast finish preparing dequeue
-	  cDeq.Broadcast();
+	  cDeq->Broadcast();
      }
 
      // Take a element from queue
      T Dequeue() {
-	  m.Lock();
+	  m->Lock();
 	  // Wait and blocking until somethings call #Broadcast or #Signal
 	  // But, if the queue is full when called, wait and blocking
-	  cDeq.Wait([this] { return !data.empty(); });
+	  cDeq->Wait([this] { return !data.empty(); });
 	  T ret = data.front();
 	  data.pop_front();
 	  // Broadcast finish preparing enqueue
-	  cEnq.Broadcast();
+	  cEnq->Broadcast();
 	  return ret;
      }
 
 private:
-     wxMutex m;
+     wxMutex* m;
+     wxCondition* cEnq;
+     wxCondition* cDeq;
      std::deque<T> data;
      size_t capacity;
-     wxCondition cEnq;
-     wxCondition cDeq;
 };
+
+
+//
+// ワーカースレッド: キューに0, 1, 2, 3, 4を順番に入れる
+//
+template <class T>
+class WorkerThread : public wxThread
+{
+public:
+     WorkerThread(): wxThread(wxTHREAD_JOINABLE){};
+     WorkerThread(wxLockedQueue<T> lq): wxThread(wxTHREAD_JOINABLE) { m_lq = lq; };
+     ~WorkerThread();
+
+     void worker(wxLockedQueue<T> lq) {
+	  for (int i = 0; i < 5; ++i) {
+	       lq.enqueue(i);
+	       wxThread::This()->Sleep(1);
+	  }
+     }
+
+protected:
+     virtual ExitCode Entry();
+     wxLockedQueue<T> m_lq;
+};
+
+// impl
+template <class T>
+wxThread::ExitCode WorkerThread<T>::Entry()
+{
+     while (!TestDestroy())
+     {
+	  // ... do a bit of work...
+	  worker(m_lq);
+     }
+
+     return (wxThread::ExitCode)0;
+}

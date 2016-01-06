@@ -21,6 +21,7 @@ public:
      void OnQuit(wxCommandEvent& event);
      void OnRestart(wxCommandEvent& event);
      void OnAbout(wxCommandEvent& event);
+     void OnTestLockedQueue(wxCommandEvent& event);
 
      // 再起動処理のためのPID
      unsigned long pid;
